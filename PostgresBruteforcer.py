@@ -3,7 +3,8 @@ import time
 import argparse
 
 host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
-users_file='users.txt'
+# users_file='users.txt'
+users_file='passwords_8_len.txt'
 passwords_file='passwords_8_len.txt'
 
 def bruteforce(user, password):
