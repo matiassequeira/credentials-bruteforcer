@@ -6,9 +6,9 @@ host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
 users_file='users.txt'
 passwords_file='passwords_8_len.txt'
 
-def bruteforce(user):
+def bruteforce(user, password):
     user_list= [user] if user else open(f'{users_file}',"r")
-    password_list= open(f'{passwords_file}',"r")
+    password_list= [password] if password else open(f'{passwords_file}',"r")
 
     start = time.time()
 
@@ -42,6 +42,10 @@ if __name__ == '__main__':
                         help="Fixed user to test",
                         default=None
                         )
+    parser.add_argument('-p','--password',
+                        help="Fixed pass to test",
+                        default=None
+                        )    
     options= parser.parse_args()       
 
-    bruteforce(options.user)
+    bruteforce(options.user, options.password)
