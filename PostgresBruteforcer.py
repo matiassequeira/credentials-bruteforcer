@@ -12,7 +12,7 @@ start = time.time()
 
 current_user='postgres'
 
-print(f'Testing user: {current_password}')
+print(f'Testing user: {current_user}')
 # for current_user in user_list:
 for current_password in password_list:
 
