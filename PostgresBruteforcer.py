@@ -4,7 +4,7 @@ import argparse
 
 host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
 users_file='users.txt'
-passwords_file='passwords.txt'
+passwords_file='passwords_8_len.txt'
 
 def bruteforce(user):
     user_list= [user] if user else open(f'{users_file}',"r")
