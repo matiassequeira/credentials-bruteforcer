@@ -26,7 +26,7 @@ for current_password in password_list:
             host=host,
             port='5432'
         )
-    except Exception e:
+    except Exception as e:
         continue
     
     print(f'Found: {current_password}')
