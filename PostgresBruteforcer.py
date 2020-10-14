@@ -15,7 +15,6 @@ def bruteforce(user, password):
 
     iterations=0
     for current_user in user_list:
-        print(f'Testing user: {current_user}')
         for current_password in password_list:
             # print(f'Testing password: {current_password}')
             iterations+=1
@@ -48,5 +47,8 @@ if __name__ == '__main__':
                         default=None
                         )    
     options= parser.parse_args()       
+
+    if options.user:
+        print(f'Testing user: {options.user}')
 
     bruteforce(options.user, options.password)
