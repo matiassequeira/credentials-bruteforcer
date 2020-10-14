@@ -1,5 +1,6 @@
 import psycopg2
 import time
+import argparse
 
 host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
 users_file='users.txt'
