@@ -35,7 +35,6 @@ def bruteforce(user, password):
                     database='',
                     port=3306
                     )
-                )
             except Exception as e:
                 trial_elapsed = time.time() - trial_start
                 print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
