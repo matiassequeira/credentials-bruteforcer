@@ -4,12 +4,21 @@ import argparse
 
 host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
 # users_file='users.txt'
-users_file='passwords_8_len_short.txt'
-passwords_file='passwords_8_len_short.txt'
+users_filename='passwords_8_len_short.txt'
+passwords_filename='passwords_8_len_short.txt'
 
 def bruteforce(user, password):
-    user_list= [user] if user else open(f'{users_file}',"r")
-    password_list= [password] if password else open(f'{passwords_file}',"r")
+    raw_user_list= [user] if user else open(f'{users_filename}',"r")
+    raw_password_list= [password] if password else open(f'{passwords_filename}',"r")
+
+    user_list=list()
+    for user in raw_user_list:
+        user_list.append(user.strip())
+
+    password_list=list()
+    for password in raw_user_list:
+        password_list.append(password.strip())
+
 
     total_time = time.time()
 
