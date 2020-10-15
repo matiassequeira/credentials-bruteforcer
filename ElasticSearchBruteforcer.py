@@ -34,6 +34,7 @@ def bruteforce(user, password):
                         http_auth=(current_user, current_password),
                         scheme="https",
                         port=443,
+                        sniff_on_start=True,
                     )
             except Exception as e:
                 trial_elapsed = time.time() - trial_start
