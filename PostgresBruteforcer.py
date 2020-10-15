@@ -16,13 +16,12 @@ def bruteforce(user, password):
         user_list.append(user.strip())
 
     password_list=list()
-    for password in raw_user_list:
+    for password in raw_password_list:
         password_list.append(password.strip())
 
-
-    total_time = time.time()
-
+    
     iterations=0
+    total_time = time.time()
     for current_user in user_list:
         for current_password in password_list:
             # print(f'Testing password: {current_password}')
