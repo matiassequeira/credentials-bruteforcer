@@ -3,10 +3,10 @@ import argparse
 
 from elasticsearch import Elasticsearch
 
-host='aurora-test-db-instance-1.c8ur2wv0ivpl.us-east-1.rds.amazonaws.com'
+host='search-elasticsearch-test-db-gvgx23yjwa64hbznzhrg4nsus4.us-east-1.es.amazonaws.com'
 # users_file='users.txt'
-users_filename='aurora_users_8_len_short.txt'
-passwords_filename='aurora_passwords_8_len_short.txt'
+users_filename='elastic_users_8_len_short.txt'
+passwords_filename='elastic_passwords_8_len_short.txt'
 
 def bruteforce(user, password):
     raw_user_list= [user] if user else open(f'{users_filename}',"r")
@@ -27,24 +27,23 @@ def bruteforce(user, password):
         for current_password in password_list:
             # print(f'Testing password: {current_password}')
             iterations+=1
-            try:
-                trial_start=time.time()
-                es = Elasticsearch(
-                        [host],
-                        http_auth=(current_user, current_password),
-                        scheme="https",
-                        port=443,
-                        sniff_on_start=True,
-                    )
-            except Exception as e:
+            trial_start=time.time()
+            es = Elasticsearch(
+                    [host],
+                    http_auth=(current_user, current_password),
+                    scheme="https",
+                    port=443,
+                    # sniff_on_start=True,
+                )
+            if not es.ping():
                 trial_elapsed = time.time() - trial_start
                 print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
                 continue
-            
-            trial_elapsed = time.time() - trial_start
-            print(f'Found: {current_password}')
-            print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
-            # break
+            else:
+                trial_elapsed = time.time() - trial_start
+                print(f'Found: {current_password}')
+                print(f'Credentials {current_user}/{current_password} took {trial_elapsed}')
+                # break
 
     total_elapsed = time.time() - total_time
     print(f'\nTotal bruteforcing time: {total_elapsed} for {iterations} trials')
